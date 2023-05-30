@@ -1,13 +1,16 @@
 <h1>Lista de productos</h1>
+
 <div>
-    <h1>Tu perfil (sin datos sensibles)</h1>
+    <h1>Tu perfil</h1>
     <p>{{user.name}}</p>
     <p>{{user.email}}</p>
     <p>{{user.age}}</p>
+    <p>{{user.role}}</p>
     <a href="/api/sessions/logout"><button>Salir</button></a>
 </div>
+
 <div class="products">
-    {{#each docs}}
+    {{#each products.docs}}
         <div>
             <h2>{{this.title}}</h2>
             <p>Descripcion: {{this.description}}</p>
@@ -19,12 +22,12 @@
         </div>
     {{/each}}
 
-    {{#if hasPrevPage}}
-    <a href={{prevLink}}><button>Anterior</button></a>
+    {{#if products.hasPrevPage}}
+    <a href={{products.prevLink}}><button>Anterior</button></a>
     {{/if}}
 
-    {{#if hasNextPage}}
-    <a href={{nextLink}}><button>Siguiente</button></a>
+    {{#if products.hasNextPage}}
+    <a href={{products.nextLink}}><button>Siguiente</button></a>
     {{/if}}
 </div>
 <script src="/js/index.js"></script>

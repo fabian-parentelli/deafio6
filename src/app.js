@@ -13,14 +13,13 @@ const app = express();
 
 try {
     await mongoose.connect('mongodb+srv://fabianparentelli007code:MU8O6JWQtjzskwZE@clusterfabian.kpwq3c1.mongodb.net/ecommerce?retryWrites=true&w=majority');
-    console.log('Conected DB');
+    console.log('Conected Db');
 } catch (error) {
     console.error(error);
 };
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(`${__dirname}/public`));
 
 app.engine('handlebars', Handlebars.engine());
@@ -32,14 +31,14 @@ app.use(session({
         client: mongoose.connection.getClient(),
         ttl: 3600
     }),
-    secret: 'coder39760',
+    secret: 'Coder39760',
     resave: true,
     saveUninitialized: true
 }));
 
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
-app.use('/api/sessions', sessionsRouter);
 app.use('/', viewRouter);
+app.use('/api/sessions', sessionsRouter);
 
 app.listen(8080, () => console.log('Server runing in port 8080'));

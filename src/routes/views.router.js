@@ -24,12 +24,13 @@ router.get('/login', publicAccess, (req, res) => {
     res.render('login');
 });
 
-router.get('/', privateAccess, (req, res) => {
-    res.render('products', { user: req.session.user } ); 
+router.get('/', publicAccess, (req, res) => {
+    res.render('login');
 });
 
-router.get('/products', async (req, res) => {
+router.get('/products', privateAccess, async (req, res) => {
     const { limit = 10, page = 1, query = false, sort } = req.query;
+    console.log(req.session.user);
 
     if (sort) {
         if (sort !== 'desc' && sort !== 'asc') {
@@ -48,10 +49,10 @@ router.get('/products', async (req, res) => {
         products.prevLink = products.hasPrevPage ? `${url}page=${products.prevPage}` : null;
         products.nextLink = products.hasNextPage ? `${url}page=${products.nextPage}` : null;
         
-        res.render('products', products);
+        res.render('products', {products, user: req.session.user});
 
     } catch (error) {
-       res.render('products' ,{ status: 'error', error });
+       res.render('products' , { status: 'error', error });
     };
 });
 
